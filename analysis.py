@@ -35,7 +35,6 @@ for student in students:
     
     total_attendance += student["attendance_rate"]
     total_quiz_scores += avg_quiz
-    
     risk_counts[risk] += 1
     
     #best student
@@ -43,7 +42,6 @@ for student in students:
         highest_score = avg_quiz
         best_student = student["name"]
 
-print("\n" + "="*40 + "\n")
 
 #هون بحسب المعادلات 
 num_students = len(students)

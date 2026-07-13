@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Sara",
+        "average_quiz_score": 87.67,
+        "lesson_completion": 80.0,
+        "risk_level": "Low Risk"
+    },
+    {
+        "name": "Maya",
+        "average_quiz_score": 58.33,
+        "lesson_completion": 40.0,
+        "risk_level": "High Risk"
+    },
+    {
+        "name": "Lina",
+        "average_quiz_score": 75.0,
+        "lesson_completion": 66.67,
+        "risk_level": "Low Risk"
+    },
+    {
+        "name": "Noor",
+        "average_quiz_score": 46.67,
+        "lesson_completion": 26.67,
+        "risk_level": "High Risk"
+    },
+    {
+        "name": "Huda",
+        "average_quiz_score": 92.67,
+        "lesson_completion": 93.33,
+        "risk_level": "Low Risk"
+    },
+    {
+        "name": "Rama",
+        "average_quiz_score": 68.33,
+        "lesson_completion": 56.67,
+        "risk_level": "Medium Risk"
+    }
+]

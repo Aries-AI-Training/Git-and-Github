@@ -1,0 +1,14 @@
+{
+    "best_student": "Huda",
+    "highest_risk_students": [
+        "Maya",
+        "Noor"
+    ],
+    "average_attendance": 73.33,
+    "average_quiz_score": 71.44,
+    "students_per_risk_level": {
+        "Low Risk": 3,
+        "Medium Risk": 1,
+        "High Risk": 2
+    }
+}

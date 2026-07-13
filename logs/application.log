@@ -1,0 +1,20 @@
+2026-07-13 20:20:43,423 - INFO - Application started
+2026-07-13 20:20:43,424 - INFO - Loaded 11 records
+2026-07-13 20:20:43,424 - WARNING - Student '' skipped: Name is empty
+2026-07-13 20:20:43,424 - WARNING - Student 'Ahmad' skipped: Attendance must be between 0 and 100
+2026-07-13 20:20:43,424 - WARNING - Student 'Ali' skipped: Quiz score must be between 0 and 100
+2026-07-13 20:20:43,424 - WARNING - Student 'Omar' skipped: Watched lessons cannot exceed total lessons
+2026-07-13 20:20:43,424 - WARNING - Student 'Layan' skipped: Days inactive cannot be negative
+2026-07-13 20:20:43,433 - INFO - 6 valid students processed
+2026-07-13 20:20:43,433 - INFO - Output files created
+2026-07-13 20:20:43,433 - INFO - Application finished
+2026-07-13 20:39:30,185 - INFO - Application started
+2026-07-13 20:39:30,201 - INFO - Loaded 11 records from CSV
+2026-07-13 20:39:30,202 - WARNING - Student 'Unknown/Empty Name' skipped: Name is empty
+2026-07-13 20:39:30,202 - WARNING - Student 'Ahmad' skipped: Attendance must be between 0 and 100
+2026-07-13 20:39:30,202 - WARNING - Student 'Ali' skipped: Quiz score must be between 0 and 100
+2026-07-13 20:39:30,202 - WARNING - Student 'Omar' skipped: Watched lessons cannot exceed total lessons
+2026-07-13 20:39:30,202 - WARNING - Student 'Layan' skipped: Days inactive cannot be negative
+2026-07-13 20:39:30,203 - INFO - 6 valid students successfully processed
+2026-07-13 20:39:30,203 - INFO - Output JSON files created successfully
+2026-07-13 20:39:30,203 - INFO - Application finished smoothly
