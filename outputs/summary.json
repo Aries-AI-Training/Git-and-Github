@@ -1,14 +1,14 @@
 {
-    "best_student": "Huda",
-    "highest_risk_students": [
-        "Maya",
-        "Noor"
-    ],
-    "average_attendance": 73.33,
-    "average_quiz_score": 71.44,
+    "total_students": 6606,
+    "best_performing_student": "Student_6348",
+    "best_average_score": 98.0,
+    "highest_risk_student": "Student_3358",
+    "worst_average_score": 54.5,
+    "average_attendance": 79.97,
+    "average_score": 71.15,
     "students_per_risk_level": {
-        "Low Risk": 3,
-        "Medium Risk": 1,
-        "High Risk": 2
+        "Low Risk": 959,
+        "Medium Risk": 3786,
+        "High Risk": 1861
     }
 }

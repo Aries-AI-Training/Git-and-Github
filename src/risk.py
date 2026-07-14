@@ -1,21 +1,19 @@
-from metrics import average_quiz_score
+from metrics import average_score
 
 
 def student_risk_level(student: dict) -> str:
-    average = average_quiz_score(student)
+    """
+    Classify the student's risk level.
+    """
 
-    if (
-        average < 60
-        or student["attendance_rate"] < 60
-        or student["days_inactive"] > 7
-    ):
+    average = average_score(student)
+    attendance = float(student["Attendance"])
+    hours = float(student["Hours_Studied"])
+
+    if average < 60 or attendance < 70 or hours < 5:
         return "High Risk"
 
-    elif (
-        average < 75
-        or student["attendance_rate"] < 75
-        or 4 <= student["days_inactive"] <= 7
-    ):
+    elif average < 75 or attendance < 85 or hours < 10:
         return "Medium Risk"
 
     else:
