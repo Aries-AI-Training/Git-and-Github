@@ -1,14 +1,11 @@
-from metrics import average_score
+from metrics import average_score, attendance_rate
 
 
 def student_risk_level(student: dict) -> str:
-    """
-    Classify the student's risk level.
-    """
 
     average = average_score(student)
-    attendance = float(student["Attendance"])
-    hours = float(student["Hours_Studied"])
+    attendance = attendance_rate(student)
+    hours = float(student.get("study_hours", 0))
 
     if average < 60 or attendance < 70 or hours < 5:
         return "High Risk"

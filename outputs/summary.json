@@ -1,14 +1,14 @@
 {
     "total_students": 6606,
-    "best_performing_student": "Student_6348",
-    "best_average_score": 98.0,
-    "highest_risk_student": "Student_3358",
-    "worst_average_score": 54.5,
-    "average_attendance": 79.97,
-    "average_score": 71.15,
+    "best_performing_student": "Student_1",
+    "best_average_score": 0.0,
+    "highest_risk_student": "Student_1",
+    "worst_average_score": 0.0,
+    "average_attendance": 0.0,
+    "average_score": 0.0,
     "students_per_risk_level": {
-        "Low Risk": 959,
-        "Medium Risk": 3786,
-        "High Risk": 1861
+        "Low Risk": 0,
+        "Medium Risk": 0,
+        "High Risk": 6606
     }
 }

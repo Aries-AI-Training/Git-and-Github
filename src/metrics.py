@@ -1,31 +1,25 @@
 def average_score(student: dict) -> float:
-    """
-    Calculate the average of Previous Score and Exam Score.
-    """
+    quiz_scores = student.get("quiz_scores", [])
 
-    previous_score = float(student["Previous_Scores"])
-    exam_score = float(student["Exam_Score"])
+    if not quiz_scores:
+        return 0.0
 
-    return (previous_score + exam_score) / 2
+    return sum(quiz_scores) / len(quiz_scores)
 
 
 def attendance_rate(student: dict) -> float:
-    """
-    Return the student's attendance percentage.
-    """
+    attendance = student.get("attendance_rate", 0)
 
-    return float(student["Attendance"])
+    if attendance <= 1:
+        attendance *= 100
+
+    return attendance
 
 
 def study_efficiency(student: dict) -> float:
-    """
-    Calculate exam score per study hour.
-    """
-
-    hours = float(student["Hours_Studied"])
-    exam_score = float(student["Exam_Score"])
+    hours = float(student.get("study_hours", 0))
 
     if hours == 0:
         return 0.0
 
-    return exam_score / hours
+    return average_score(student) / hours

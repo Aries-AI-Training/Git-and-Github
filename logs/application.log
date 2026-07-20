@@ -4,3 +4,81 @@
 2026-07-14 13:04:56,407 - INFO - 6606 valid students processed
 2026-07-14 13:04:56,407 - INFO - JSON reports created successfully
 2026-07-14 13:04:56,407 - INFO - Application finished successfully
+2026-07-14 14:38:58,362 - INFO - Application started
+2026-07-14 14:38:59,075 - INFO - 6607 student records loaded
+2026-07-14 14:38:59,093 - WARNING - Student #1526 skipped: Exam score must be between 0 and 100
+2026-07-14 14:38:59,217 - INFO - 6606 valid students processed
+2026-07-14 14:38:59,217 - INFO - JSON reports created successfully
+2026-07-14 14:38:59,218 - INFO - Application finished successfully
+2026-07-15 12:11:23,145 [INFO] Root endpoint accessed via API.
+2026-07-18 02:18:13,547 [INFO] Application started in CLI mode
+2026-07-18 02:18:19,674 [INFO] Application started in CLI mode
+2026-07-18 02:18:22,389 [INFO] 6607 student records loaded
+2026-07-18 02:18:22,408 [WARNING] Student #1526 skipped: Exam score must be between 0.0 and 100.0
+2026-07-18 02:18:22,561 [INFO] 6606 valid students processed
+2026-07-18 02:18:22,561 [INFO] JSON reports created successfully
+2026-07-18 02:18:22,561 [INFO] Application finished successfully
+2026-07-18 02:18:51,413 [INFO] Application started in CLI mode
+2026-07-18 02:18:53,476 [INFO] 6607 student records loaded
+2026-07-18 02:18:53,493 [WARNING] Student #1526 skipped: Exam score must be between 0.0 and 100.0
+2026-07-18 02:18:53,635 [INFO] 6606 valid students processed
+2026-07-18 02:18:53,635 [INFO] JSON reports created successfully
+2026-07-18 02:18:53,635 [INFO] Application finished successfully
+2026-07-18 02:20:55,776 [INFO] Application started in CLI mode
+2026-07-18 02:20:56,752 [INFO] 6607 student records loaded
+2026-07-18 02:20:56,764 [WARNING] Student #1526 skipped: Exam score must be between 0.0 and 100.0
+2026-07-18 02:20:56,870 [INFO] 6606 valid students processed
+2026-07-18 02:20:56,870 [INFO] JSON reports created successfully
+2026-07-18 02:20:56,870 [INFO] Application finished successfully
+2026-07-18 02:21:34,795 [INFO] Application started in CLI mode
+2026-07-18 02:21:35,897 [INFO] 6607 student records loaded
+2026-07-18 02:21:35,916 [WARNING] Student #1526 skipped: Exam score must be between 0.0 and 100.0
+2026-07-18 02:21:36,046 [INFO] 6606 valid students processed
+2026-07-18 02:21:36,046 [INFO] JSON reports created successfully
+2026-07-18 02:21:36,047 [INFO] Application finished successfully
+2026-07-18 02:39:38,986 [INFO] Application started in CLI mode
+2026-07-18 02:39:41,040 [INFO] 6607 student records loaded
+2026-07-18 02:39:41,047 [WARNING] Student #1526 skipped: Exam score must be between 0.0 and 100.0
+2026-07-18 02:39:41,118 [INFO] 6606 valid students processed
+2026-07-18 02:39:41,118 [INFO] JSON reports created successfully
+2026-07-18 02:39:41,118 [INFO] Application finished successfully
+2026-07-18 02:41:53,976 [INFO] Application started in CLI mode
+2026-07-18 02:41:54,713 [INFO] 6607 student records loaded
+2026-07-18 02:41:54,720 [WARNING] Student #1526 skipped: Exam score must be between 0.0 and 100.0
+2026-07-18 02:41:54,789 [INFO] 6606 valid students processed
+2026-07-18 02:41:54,789 [INFO] JSON reports created successfully
+2026-07-18 02:41:54,790 [INFO] Application finished successfully
+2026-07-18 02:42:23,198 [INFO] Application started in CLI mode
+2026-07-18 02:42:24,191 [INFO] 6607 student records loaded
+2026-07-18 02:42:24,198 [WARNING] Student #1526 skipped: Exam score must be between 0.0 and 100.0
+2026-07-18 02:42:24,269 [INFO] 6606 valid students processed
+2026-07-18 02:42:24,269 [INFO] JSON reports created successfully
+2026-07-18 02:42:24,270 [INFO] Application finished successfully
+2026-07-18 02:45:18,433 [INFO] Application started in CLI mode
+2026-07-18 02:45:19,387 [INFO] 6607 student records loaded
+2026-07-18 02:45:19,394 [WARNING] Student #1526 skipped: Exam score must be between 0.0 and 100.0
+2026-07-18 02:45:19,462 [INFO] 6606 valid students processed
+2026-07-18 02:45:19,462 [INFO] JSON reports created successfully
+2026-07-18 02:45:19,462 [INFO] Application finished successfully
+2026-07-18 02:47:42,316 [INFO] Root endpoint accessed via API.
+2026-07-18 02:52:18,068 [INFO] Root endpoint accessed via API.
+2026-07-18 02:52:22,467 [INFO] Root endpoint accessed via API.
+2026-07-18 02:54:48,981 [INFO] Root endpoint accessed via API.
+2026-07-18 03:00:10,640 [INFO] Root endpoint accessed via API.
+2026-07-18 03:00:28,310 [INFO] Root endpoint accessed via API.
+2026-07-18 03:02:30,006 [INFO] Root endpoint accessed via API.
+2026-07-18 03:08:01,753 [INFO] Root endpoint accessed via API.
+2026-07-18 03:10:24,486 [INFO] Root endpoint accessed via API.
+2026-07-18 03:14:41,680 [INFO] Root endpoint accessed via API.
+2026-07-18 03:14:42,836 [INFO] Root endpoint accessed via API.
+2026-07-18 03:14:44,518 [INFO] Root endpoint accessed via API.
+2026-07-18 03:17:50,417 [INFO] Root endpoint accessed via API.
+2026-07-18 03:36:27,788 [INFO] Root endpoint accessed via API.
+2026-07-18 04:27:36,559 [INFO] Root endpoint accessed via API.
+2026-07-18 04:27:49,328 [INFO] Root endpoint accessed via API.
+2026-07-19 03:01:40,436 [INFO] Application started in CLI mode
+2026-07-19 03:01:41,843 [INFO] 6607 student records loaded
+2026-07-19 03:01:41,859 [WARNING] Student #1526 skipped: Exam score must be between 0.0 and 100.0
+2026-07-19 03:01:41,984 [INFO] 6606 valid students processed
+2026-07-19 03:01:41,985 [INFO] JSON reports created successfully
+2026-07-19 03:01:41,985 [INFO] Application finished successfully
