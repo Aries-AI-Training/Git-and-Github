@@ -16,22 +16,24 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
-def setup_directories():
-    os.makedirs('outputs', exist_ok=True)
-    os.makedirs('outputs/charts', exist_ok=True)
-    os.makedirs('reports', exist_ok=True)
+def setup_directories(base_dir):
+    os.makedirs(os.path.join(base_dir, 'outputs'), exist_ok=True)
+    os.makedirs(os.path.join(base_dir, 'outputs', 'charts'), exist_ok=True)
+    os.makedirs(os.path.join(base_dir, 'reports'), exist_ok=True)
 
 def load_data(filepath):
     print(f"Loading data from {filepath}...")
     return pd.read_csv(filepath)
 
-def generate_eda_charts(df):
+def generate_eda_charts(df, base_dir):
     print("Generating exploratory data analysis charts...")
-    setup_directories()
+    setup_directories(base_dir)
     
     # Custom color palette (Slate for Stayed, Red for Churn)
     churn_colors = {"No": "#475569", "Yes": "#b91c1c"}
     sns.set_theme(style="whitegrid")
+    
+    charts_dir = os.path.join(base_dir, 'outputs', 'charts')
     
     # Chart 1: Churn Distribution
     plt.figure(figsize=(6, 5))
@@ -43,7 +45,7 @@ def generate_eda_charts(df):
         ax.annotate(f'{int(p.get_height())}', (p.get_x() + p.get_width() / 2., p.get_height()),
                     ha='center', va='center', xytext=(0, 5), textcoords='offset points', fontsize=10)
     plt.tight_layout()
-    plt.savefig('outputs/charts/01_churn_distribution.png', dpi=150)
+    plt.savefig(os.path.join(charts_dir, '01_churn_distribution.png'), dpi=150)
     plt.close()
 
     # Chart 2: Churn by Contract Type
@@ -54,7 +56,7 @@ def generate_eda_charts(df):
     plt.ylabel('Customer Count', fontsize=11)
     plt.legend(title='Status', labels=['Retained', 'Churned'])
     plt.tight_layout()
-    plt.savefig('outputs/charts/02_churn_by_contract.png', dpi=150)
+    plt.savefig(os.path.join(charts_dir, '02_churn_by_contract.png'), dpi=150)
     plt.close()
 
     # Chart 3: Churn by Internet Service Type
@@ -65,7 +67,7 @@ def generate_eda_charts(df):
     plt.ylabel('Customer Count', fontsize=11)
     plt.legend(title='Status', labels=['Retained', 'Churned'])
     plt.tight_layout()
-    plt.savefig('outputs/charts/03_churn_by_internet_service.png', dpi=150)
+    plt.savefig(os.path.join(charts_dir, '03_churn_by_internet_service.png'), dpi=150)
     plt.close()
 
     # Chart 4: Churn by Tenure Months (Box Plot)
@@ -75,7 +77,7 @@ def generate_eda_charts(df):
     plt.xlabel('Customer Status (No = Retained, Yes = Churned)', fontsize=11)
     plt.ylabel('Tenure (Months)', fontsize=11)
     plt.tight_layout()
-    plt.savefig('outputs/charts/04_churn_by_tenure.png', dpi=150)
+    plt.savefig(os.path.join(charts_dir, '04_churn_by_tenure.png'), dpi=150)
     plt.close()
 
     # Chart 5: Churn by Payment Method
@@ -87,7 +89,7 @@ def generate_eda_charts(df):
     plt.xticks(rotation=15)
     plt.legend(title='Status', labels=['Retained', 'Churned'])
     plt.tight_layout()
-    plt.savefig('outputs/charts/05_churn_by_payment_method.png', dpi=150)
+    plt.savefig(os.path.join(charts_dir, '05_churn_by_payment_method.png'), dpi=150)
     plt.close()
 
     # Chart 6: Churn by Tech Support service adoption
@@ -98,7 +100,7 @@ def generate_eda_charts(df):
     plt.ylabel('Customer Count', fontsize=11)
     plt.legend(title='Status', labels=['Retained', 'Churned'])
     plt.tight_layout()
-    plt.savefig('outputs/charts/06_churn_by_tech_support.png', dpi=150)
+    plt.savefig(os.path.join(charts_dir, '06_churn_by_tech_support.png'), dpi=150)
     plt.close()
     
     print("EDA charts saved successfully to outputs/charts/")
@@ -132,12 +134,6 @@ def clean_data(df):
 
 def evaluate_baseline_rule(test_df):
     print("Evaluating simple business-rule baseline...")
-    # Business logic baseline rule for Telco dataset:
-    # Predict Churn if:
-    # Contract is Month-to-month
-    # AND OnlineSecurity is No
-    # AND TechSupport is No
-    # (This represents month-to-month customers with no security and no support)
     
     predictions = (
         (test_df['Contract'] == 'Month-to-month') & 
@@ -157,8 +153,8 @@ def evaluate_baseline_rule(test_df):
     print(f"Baseline Rule - Accuracy: {accuracy:.4f}, Precision: {precision:.4f}, Recall: {recall:.4f}, F1: {f1:.4f}")
     return accuracy, precision, recall, f1, cm, y_pred
 
-def train_and_evaluate_ml(X_train, X_test, y_train, y_test):
-    setup_directories()
+def train_and_evaluate_ml(X_train, X_test, y_train, y_test, base_dir):
+    setup_directories(base_dir)
     
     # Define features
     numeric_features = ['tenure', 'MonthlyCharges', 'TotalCharges']
@@ -186,6 +182,7 @@ def train_and_evaluate_ml(X_train, X_test, y_train, y_test):
     
     results = {}
     pipelines = {}
+    charts_dir = os.path.join(base_dir, 'outputs', 'charts')
     
     for name, model in models.items():
         print(f"Training {name}...")
@@ -229,17 +226,21 @@ def train_and_evaluate_ml(X_train, X_test, y_train, y_test):
         plt.xlabel('Predicted Label')
         plt.ylabel('True Label')
         plt.tight_layout()
-        cm_filename = f"outputs/charts/cm_{name.lower().replace(' ', '_')}.png"
+        cm_filename = os.path.join(charts_dir, f"cm_{name.lower().replace(' ', '_')}.png")
         plt.savefig(cm_filename, dpi=150)
         plt.close()
         
     return results, pipelines
 
 def main():
-    setup_directories()
+    # Resolve base_dir to the root directory of the repository (one level up from train.py)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.dirname(script_dir)
+    
+    setup_directories(base_dir)
     
     # 1. Load Data
-    data_path = 'data/customer_churn.csv'
+    data_path = os.path.join(base_dir, 'data', 'customer_churn.csv')
     if not os.path.exists(data_path):
         print(f"Error: {data_path} does not exist.")
         return
@@ -247,7 +248,7 @@ def main():
     df = load_data(data_path)
     
     # 2. EDA Visualizations
-    generate_eda_charts(df)
+    generate_eda_charts(df, base_dir)
     
     # 3. Clean Data
     df_clean = clean_data(df)
@@ -272,7 +273,7 @@ def main():
     base_acc, base_prec, base_rec, base_f1, base_cm, base_preds = evaluate_baseline_rule(X_test_df)
     
     # 7. Train ML Models
-    ml_results, ml_pipelines = train_and_evaluate_ml(X_train, X_test, y_train, y_test)
+    ml_results, ml_pipelines = train_and_evaluate_ml(X_train, X_test, y_train, y_test, base_dir)
     
     # 8. Compare Models
     comparison_data = [
@@ -295,12 +296,11 @@ def main():
         })
         
     comparison_df = pd.DataFrame(comparison_data)
-    comparison_df.to_csv('outputs/model_comparison.csv', index=False)
+    comparison_df.to_csv(os.path.join(base_dir, 'outputs', 'model_comparison.csv'), index=False)
     print("\nModel Comparison Table:")
     print(comparison_df.to_string(index=False))
     
     # 9. Model Selection
-    # Choose Decision Tree for interpretability and high recall
     selected_model_name = "Decision Tree"
     selected_pipeline = ml_pipelines[selected_model_name]
     selected_metrics = ml_results[selected_model_name]
@@ -308,8 +308,8 @@ def main():
     print(f"\nSelected Model: {selected_model_name}")
     
     # Save Selected Model
-    joblib.dump(selected_pipeline, 'outputs/selected_model.joblib')
-    print("Selected model saved to outputs/selected_model.joblib")
+    joblib.dump(selected_pipeline, os.path.join(base_dir, 'outputs', 'selected_model.joblib'))
+    print(f"Selected model saved to {os.path.join(base_dir, 'outputs', 'selected_model.joblib')}")
     
     # 10. Save Test Predictions CSV
     test_preds_df = pd.DataFrame({
@@ -318,8 +318,8 @@ def main():
         'predicted_churn': selected_metrics['preds'],
         'churn_probability': selected_metrics['probs']
     })
-    test_preds_df.to_csv('outputs/test_predictions.csv', index=False)
-    print("Test predictions saved to outputs/test_predictions.csv")
+    test_preds_df.to_csv(os.path.join(base_dir, 'outputs', 'test_predictions.csv'), index=False)
+    print(f"Test predictions saved to {os.path.join(base_dir, 'outputs', 'test_predictions.csv')}")
     
     # 11. Save Evaluation Summary JSON
     cm = selected_metrics['cm']
@@ -345,9 +345,10 @@ def main():
         "important_business_conclusion": conclusion
     }
     
-    with open('outputs/evaluation_summary.json', 'w', encoding='utf-8') as f:
+    summary_path = os.path.join(base_dir, 'outputs', 'evaluation_summary.json')
+    with open(summary_path, 'w', encoding='utf-8') as f:
         json.dump(summary_data, f, indent=4, ensure_ascii=False)
-    print("Evaluation summary saved to outputs/evaluation_summary.json")
+    print(f"Evaluation summary saved to {summary_path}")
     
     print("\nTraining and evaluation pipeline completed successfully!")
 
