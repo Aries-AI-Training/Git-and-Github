@@ -1,10 +1,10 @@
 {
     "selected_model_name": "Decision Tree",
-    "accuracy": 0.86,
-    "precision": 0.4318181818181818,
-    "recall": 0.8636363636363636,
-    "f1_score": 0.5757575757575758,
-    "false_positives": 25,
-    "false_negatives": 3,
-    "important_business_conclusion": "The Decision Tree model was chosen because it achieves a strong balance between identifying at-risk customers (Recall: 86.36%) and maintaining reasonable targeting efficiency (Precision: 43.18%). This model will enable the customer success team to proactively contact high-risk customers, resolving their concerns before they churn, while minimizing the cost of false alarms."
+    "accuracy": 0.7345635202271115,
+    "precision": 0.5,
+    "recall": 0.820855614973262,
+    "f1_score": 0.6214574898785425,
+    "false_positives": 307,
+    "false_negatives": 67,
+    "important_business_conclusion": "The Decision Tree model was chosen because it achieves a strong balance between identifying at-risk customers (Recall: 82.09%) and maintaining reasonable targeting efficiency (Precision: 50.00%). This model will enable the customer success team to proactively contact high-risk customers, resolving their concerns before they churn, while minimizing the cost of false alarms."
 }
