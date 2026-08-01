@@ -123,11 +123,7 @@ def clean_data(df):
     
     # 1. Duplicates
     df_clean = df.drop_duplicates(subset=['customerID'], keep='first')
-    #افحص التكرار بناءً على عمود رقم العميل (customerID)"؛ لأن كل عميل لازم يكون إله رقم فريد وما يتكرر بالجدول.
-    #keep='first': إذا لقى نفس الـ customerID مكرر مرتين أو أكثر، بيحتفظ بالسطر الأول وبيحذف الباقي
-   
-   
-                                        #هي عدد الصفوف المتبقية بعد الحذف.
+    
     num_duplicates = initial_shape[0] - df_clean.shape[0]
     print(f"Removed {num_duplicates} duplicate records.")
     
