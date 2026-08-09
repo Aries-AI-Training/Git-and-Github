@@ -1,0 +1,5 @@
+Strategy,Total Selected Value ($),Total Revenue at Risk ($),Avg Churn Probability,Actual Churners Contacted
+Random Selection,86606.31,45974.5,0.4948,34
+Highest Churn Probability,108936.25,102639.75,0.9422,90
+Highest Predicted Value,173814.43,16892.03,0.0978,7
+Highest Revenue at Risk,131391.8,111795.42,0.8567,73

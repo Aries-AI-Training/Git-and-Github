@@ -1,0 +1,513 @@
+{
+    "2339068": {
+        "profile": {
+            "fullName": "Lugain",
+            "studentId": "2339068",
+            "university": "Hashemite University",
+            "major": "AIDS",
+            "gpa": "3.1",
+            "completedHours": 105,
+            "targetGpa": "3.65"
+        },
+        "selectedCourseIds": [
+            "aids_prog",
+            "aids_prog_lab",
+            "aids_ds",
+            "aids_swe",
+            "aids_db",
+            "aids_algo"
+        ],
+        "semesterDates": {
+            "start": "2026-09-01",
+            "firstExam": "2026-10-07",
+            "secondExam": "2026-11-12"
+        },
+        "quizScores": {
+            "1": 100.0,
+            "2": 100.0,
+            "3": 100.0,
+            "4": 100.0,
+            "5": 100.0
+        },
+        "tasks": [
+            {
+                "id": 1,
+                "title": "Study Chapter 4 of Data Structures",
+                "category": "Academic",
+                "priority": "High",
+                "completed": false
+            },
+            {
+                "id": 2,
+                "title": "Complete backend code for FastAPI Student System",
+                "category": "Projects",
+                "priority": "High",
+                "completed": false
+            },
+            {
+                "id": 3,
+                "title": "Read 10 pages of a technical book",
+                "category": "Habits",
+                "priority": "Medium",
+                "completed": false
+            }
+        ],
+        "chapterProgress": {
+            "aids_prog": {
+                "1": false,
+                "2": false,
+                "3": false,
+                "4": false
+            }
+        },
+        "pomodoroSessions": 0,
+        "examEvents": [
+            {
+                "id": 5529333,
+                "courseId": "aids_prog",
+                "courseName": "Introduction to Programming",
+                "date": "2026-09-11",
+                "time": "10:00",
+                "location": "الباني 101"
+            }
+        ],
+        "gpaPrev": "3.1",
+        "hoursPrev": 105,
+        "gpaCourses": [
+            {
+                "id": "aids_prog",
+                "name": "Introduction to Programming",
+                "credits": 3,
+                "grade": "",
+                "isRepeat": false,
+                "prevGrade": ""
+            },
+            {
+                "id": "aids_prog_lab",
+                "name": "Introduction to Programming Lab",
+                "credits": 1,
+                "grade": "",
+                "isRepeat": false,
+                "prevGrade": ""
+            },
+            {
+                "id": "aids_ds",
+                "name": "Data Structures",
+                "credits": 3,
+                "grade": "",
+                "isRepeat": false,
+                "prevGrade": ""
+            },
+            {
+                "id": "aids_algo",
+                "name": "Algorithms Analysis and Design",
+                "credits": 3,
+                "grade": "",
+                "isRepeat": false,
+                "prevGrade": ""
+            },
+            {
+                "id": "aids_swe",
+                "name": "Software Engineering Fundamentals",
+                "credits": 3,
+                "grade": "",
+                "isRepeat": false,
+                "prevGrade": ""
+            },
+            {
+                "id": "aids_db",
+                "name": "Introduction to Database Systems",
+                "credits": 3,
+                "grade": "",
+                "isRepeat": false,
+                "prevGrade": ""
+            }
+        ]
+    },
+    "2445678": {
+        "profile": {
+            "fullName": "Cady",
+            "studentId": "2445678",
+            "university": "Hashemite University",
+            "major": "AIDS",
+            "gpa": "2.65",
+            "completedHours": 45,
+            "targetGpa": "2.85"
+        },
+        "selectedCourseIds": [],
+        "semesterDates": {
+            "start": "",
+            "firstExam": "",
+            "secondExam": ""
+        },
+        "quizScores": {},
+        "tasks": [
+            {
+                "id": 1,
+                "title": "Study Chapter 4 of Data Structures",
+                "category": "Academic",
+                "priority": "High",
+                "completed": false
+            },
+            {
+                "id": 2,
+                "title": "Complete backend code for FastAPI Student System",
+                "category": "Projects",
+                "priority": "High",
+                "completed": true
+            },
+            {
+                "id": 3,
+                "title": "Read 10 pages of a technical book",
+                "category": "Habits",
+                "priority": "Medium",
+                "completed": false
+            }
+        ],
+        "chapterProgress": {},
+        "pomodoroSessions": 0,
+        "examEvents": []
+    },
+    "2357899": {
+        "profile": {
+            "fullName": "Jana",
+            "studentId": "2357899",
+            "university": "Hashemite University",
+            "major": "CS",
+            "gpa": "2.77",
+            "completedHours": 33,
+            "targetGpa": "2.97"
+        },
+        "selectedCourseIds": [],
+        "semesterDates": {
+            "start": "",
+            "firstExam": "",
+            "secondExam": ""
+        },
+        "quizScores": {},
+        "tasks": [
+            {
+                "id": 1,
+                "title": "Study Chapter 4 of Data Structures",
+                "category": "Academic",
+                "priority": "High",
+                "completed": false
+            },
+            {
+                "id": 2,
+                "title": "Complete backend code for FastAPI Student System",
+                "category": "Projects",
+                "priority": "High",
+                "completed": true
+            },
+            {
+                "id": 3,
+                "title": "Read 10 pages of a technical book",
+                "category": "Habits",
+                "priority": "Medium",
+                "completed": false
+            }
+        ],
+        "chapterProgress": {},
+        "pomodoroSessions": 0,
+        "examEvents": []
+    },
+    "2338876": {
+        "profile": {
+            "fullName": "Lugain",
+            "studentId": "2338876",
+            "university": "Hashemite University",
+            "major": "AIDS",
+            "gpa": "2.99",
+            "completedHours": 102,
+            "targetGpa": "3.1"
+        },
+        "selectedCourseIds": [],
+        "semesterDates": {
+            "start": "",
+            "firstExam": "",
+            "secondExam": ""
+        },
+        "quizScores": {},
+        "tasks": [
+            {
+                "id": 1,
+                "title": "Study Chapter 4 of Data Structures",
+                "category": "Academic",
+                "priority": "High",
+                "completed": false
+            },
+            {
+                "id": 2,
+                "title": "Complete backend code for FastAPI Student System",
+                "category": "Projects",
+                "priority": "High",
+                "completed": true
+            },
+            {
+                "id": 3,
+                "title": "Read 10 pages of a technical book",
+                "category": "Habits",
+                "priority": "Medium",
+                "completed": false
+            }
+        ],
+        "chapterProgress": {},
+        "pomodoroSessions": 0,
+        "examEvents": []
+    },
+    "2339055": {
+        "profile": {
+            "fullName": "Nagham",
+            "studentId": "2339055",
+            "university": "Hashemite University",
+            "major": "AIDS",
+            "gpa": "2.99",
+            "completedHours": 72,
+            "targetGpa": "3.21"
+        },
+        "selectedCourseIds": [
+            "aids_prog_lab",
+            "aids_prog",
+            "aids_ds",
+            "aids_oop",
+            "aids_algo",
+            "aids_db"
+        ],
+        "semesterDates": {
+            "start": "2026-09-01",
+            "firstExam": "2026-09-22",
+            "secondExam": "2026-11-01"
+        },
+        "quizScores": {
+            "1": 100.0,
+            "2": 100.0,
+            "3": 100.0
+        },
+        "tasks": [
+            {
+                "id": 1,
+                "title": "Study Chapter 4 of Data Structures",
+                "category": "Academic",
+                "priority": "High",
+                "completed": true
+            },
+            {
+                "id": 2,
+                "title": "Complete backend code for FastAPI Student System",
+                "category": "Projects",
+                "priority": "High",
+                "completed": true
+            },
+            {
+                "id": 3,
+                "title": "Read 10 pages of a technical book",
+                "category": "Habits",
+                "priority": "Medium",
+                "completed": false
+            }
+        ],
+        "chapterProgress": {
+            "aids_prog_lab": {
+                "1": true,
+                "3": true,
+                "2": true,
+                "4": true,
+                "6": true,
+                "5": true,
+                "7": true,
+                "8": true
+            }
+        },
+        "pomodoroSessions": 0,
+        "examEvents": [
+            {
+                "id": 1560003,
+                "courseId": "aids_ds",
+                "courseName": "Data Structures",
+                "date": "2026-09-02",
+                "time": "10:00",
+                "location": "الباني "
+            }
+        ],
+        "gpaPrev": "3.01",
+        "hoursPrev": 72,
+        "gpaCourses": [
+            {
+                "id": "aids_prog_lab",
+                "name": "Introduction to Programming Lab",
+                "credits": 1,
+                "grade": "A+",
+                "isRepeat": false,
+                "prevGrade": ""
+            },
+            {
+                "id": "1785049742357",
+                "name": "Course 2",
+                "credits": 3,
+                "grade": "A-",
+                "isRepeat": false,
+                "prevGrade": ""
+            },
+            {
+                "id": "1785049743689",
+                "name": "Course 3",
+                "credits": 3,
+                "grade": "B+",
+                "isRepeat": false,
+                "prevGrade": ""
+            }
+        ]
+    },
+    "2": {
+        "profile": {
+            "fullName": "l",
+            "studentId": "2",
+            "university": "Hashemite University",
+            "major": "AIDS",
+            "gpa": "2",
+            "completedHours": 2,
+            "targetGpa": "2.2"
+        },
+        "selectedCourseIds": [],
+        "semesterDates": {
+            "start": "",
+            "firstExam": "",
+            "secondExam": ""
+        },
+        "quizScores": {},
+        "tasks": [
+            {
+                "id": 1,
+                "title": "Study Chapter 4 of Data Structures",
+                "category": "Academic",
+                "priority": "High",
+                "completed": false
+            },
+            {
+                "id": 2,
+                "title": "Complete backend code for FastAPI Student System",
+                "category": "Projects",
+                "priority": "High",
+                "completed": true
+            },
+            {
+                "id": 3,
+                "title": "Read 10 pages of a technical book",
+                "category": "Habits",
+                "priority": "Medium",
+                "completed": false
+            }
+        ],
+        "chapterProgress": {},
+        "pomodoroSessions": 2,
+        "examEvents": []
+    },
+    "3": {
+        "profile": {
+            "fullName": "ن",
+            "studentId": "3",
+            "university": "Hashemite University",
+            "major": "AIDS",
+            "gpa": "2",
+            "completedHours": 1,
+            "targetGpa": "3.2"
+        },
+        "selectedCourseIds": [],
+        "semesterDates": {
+            "start": "",
+            "firstExam": "",
+            "secondExam": ""
+        },
+        "quizScores": {},
+        "tasks": [
+            {
+                "id": 1,
+                "title": "Study Chapter 4 of Data Structures",
+                "category": "Academic",
+                "priority": "High",
+                "completed": false
+            },
+            {
+                "id": 2,
+                "title": "Complete backend code for FastAPI Student System",
+                "category": "Projects",
+                "priority": "High",
+                "completed": true
+            },
+            {
+                "id": 3,
+                "title": "Read 10 pages of a technical book",
+                "category": "Habits",
+                "priority": "Medium",
+                "completed": false
+            }
+        ],
+        "chapterProgress": {},
+        "pomodoroSessions": 2,
+        "examEvents": []
+    },
+    "2339081": {
+        "profile": {
+            "fullName": "Layan",
+            "studentId": "2339081",
+            "university": "Hashemite University",
+            "major": "AIDS",
+            "gpa": "3.1",
+            "completedHours": 105,
+            "targetGpa": "3.3"
+        },
+        "selectedCourseIds": [
+            "aids_prog",
+            "aids_ds",
+            "aids_swe",
+            "aids_db",
+            "aids_algo",
+            "aids_oop"
+        ],
+        "semesterDates": {
+            "start": "2026-09-01",
+            "firstExam": "2026-10-07",
+            "secondExam": "2026-11-01"
+        },
+        "quizScores": {},
+        "tasks": [
+            {
+                "id": 1,
+                "title": "Study Chapter 4 of Data Structures",
+                "category": "Academic",
+                "priority": "High",
+                "completed": false
+            },
+            {
+                "id": 2,
+                "title": "Complete backend code for FastAPI Student System",
+                "category": "Projects",
+                "priority": "High",
+                "completed": true
+            },
+            {
+                "id": 3,
+                "title": "Read 10 pages of a technical book",
+                "category": "Habits",
+                "priority": "Medium",
+                "completed": false
+            }
+        ],
+        "chapterProgress": {},
+        "pomodoroSessions": 3,
+        "examEvents": [],
+        "gpaPrev": "3.1",
+        "hoursPrev": 105,
+        "gpaCourses": [
+            {
+                "id": "aids_prog",
+                "name": "Introduction to Programming",
+                "credits": 3,
+                "grade": "",
+                "isRepeat": false,
+                "prevGrade": ""
+            }
+        ]
+    }
+}

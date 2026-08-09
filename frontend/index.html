@@ -2,344 +2,403 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academy Intelligence Platform</title>
-    <!-- 🎨 مكتبة التصميم السريع Tailwind CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--هو مساحة الشاشة اللي بعرض عليها الموقع -->
+      <title>Academy Intelligence Platform</title>
+    <!--يعني أول ما تفتح الصفحة يكون الزوم100% , ويكون بعرض الجهاز المعروض عليها -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- ⚛️ مكتبات React و Babel لتشغيل الرياكت مباشرة بالمتصفح -->
+<!--React يخلي الصفحة تتحدث تلقائياً.-->
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<!--ِشو هو ال Babel? مترجم-->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- 🌐 مكتبة Axios للاتصال بالباك إند -->
+ <!--مكتبة لإرسال واستقبال البيانات من السيرفر., عشان اتواصل مع الباك اند بسرعة وسهولة   -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!--مكتبة Chart.js , مكتبة لرسم المخططات.-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
     <div id="root"></div>
 
     <script type="text/babel">
-        // 🚀 بناء تطبيق الرياكت جوه المتصفح مباشرة
-       function App() {
-    const [page, setPage] = React.useState('dashboard');
-    const [summary, setSummary] = React.useState(null);
-    const [students, setStudents] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
-    const [error, setError] = React.useState(null);
-    
-    // 💡 ضفنا المتغير هون عشان ما يعطي Error
-    const [studentName, setStudentName] = React.useState("");
 
-    const [form, setForm] = React.useState({
-        name: "", age: "", study_hours: "", attendance_rate: "",
-        quiz_scores: "", projects_submitted: "", watched_lessons: "",
-        total_lessons: "", days_inactive: "", support_messages: "",
-        Previous_Scores: "", Exam_Score: "", Attendance: "", Hours_Studied: ""
-    });
+        // 📊 Component لرسم الشارت باستخدام Chart.js داخل React
+        function RiskChart({ riskData }) {
+            const chartRef = React.useRef(null);
+            const chartInstance = React.useRef(null);
 
-    const [message, setMessage] = React.useState("");
+            React.useEffect(() => {
+                if (chartRef.current && riskData) {
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
 
-    // دالة إعادة تعيين الفورم عند إضافة طالب جديد
-    const resetForm = () => {
-        setStudentName("");
-        setMessage("");
-        setForm({
-            name: "", age: "", study_hours: "", attendance_rate: "",
-            quiz_scores: "", projects_submitted: "", watched_lessons: "",
-            total_lessons: "", days_inactive: "", support_messages: "",
-            Previous_Scores: "", Exam_Score: "", Attendance: "", Hours_Studied: ""
-        });
-    };
+                    const ctx = chartRef.current.getContext('2d');
+                    chartInstance.current = new Chart(ctx, {
+                        type: 'doughnut',//شكل الدونات 
+                        data: {
+                            labels: ['High Risk', 'Medium Risk', 'Low Risk'],
+                            datasets: [{
+                                data: [
+                                    riskData["High Risk"] || 0,
+                                    riskData["Medium Risk"] || 0,
+                                    riskData["Low Risk"] || 0
+                                ],
+                                backgroundColor: ['#EF4444', '#F59E0B', '#10B981'],
+                                borderWidth: 2,
+                                borderColor: '#ffffff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,//الشارت يتغير حجمه حسب الشاشة.
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { position: 'bottom' },
+                                title: { display: true, text: 'Risk Distribution Chart 🎯', font: { size: 16 } }
+                            }
+                        }
+                    });
+                }
 
-    React.useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                const resSummary = await axios.get('http://127.0.0.1:8000/students/summary');
-                const resStudents = await axios.get('http://127.0.0.1:8000/students');
-                setSummary(resSummary.data);
-                setStudents(resStudents.data);
-                setLoading(false);
-            } catch (err) {
-                setError("Failed to connect to the backend. Please make sure the FastAPI server is running.");
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, []);
+                return () => {//حتى تمسح الشارت القديم وتمنع تسريب الذاكرة (Memory Leak).
+                    if (chartInstance.current) {
+                        chartInstance.current.destroy();
+                    }
+                };
+            }, [riskData]);
 
-    if (loading) return <div className="flex justify-center items-center h-screen text-xl font-bold text-indigo-600 animate-pulse">Loading Academy Intelligence Platform ⏳</div>;
-    if (error) return <div className="p-6 bg-red-100 text-red-700 m-6 rounded-lg font-bold shadow">❌ Error: {error}</div>;
+            return (
+                <div className="relative w-full h-64">
+                    <canvas ref={chartRef}></canvas>
+                </div>
+            );
+        }
 
-    return (
-        <div className="flex h-screen bg-gray-100">
-            {/* 🗂️ Sidebar */}
-            <div className="w-64 bg-indigo-900 text-white p-6 shadow-lg">
-                <h1 className="text-xl font-bold mb-8 border-b border-indigo-700 pb-4 text-center text-yellow-400">Academy Intelligence Platform 🧠</h1>
-                <nav className="space-y-3">
-                    <button onClick={() => setPage('dashboard')} className={`w-full text-right py-2.5 px-4 rounded transition-all font-medium ${page === 'dashboard' ? 'bg-indigo-700 text-white shadow' : 'text-indigo-200 hover:bg-indigo-800'}`}>📊 Dashboard</button>
-                    <button onClick={() => setPage('students')} className={`w-full text-right py-2.5 px-4 rounded transition-all font-medium ${page === 'students' ? 'bg-indigo-700 text-white shadow' : 'text-indigo-200 hover:bg-indigo-800'}`}>👥 Students</button>
-                    <button onClick={() => setPage('at-risk')} className={`w-full text-right py-2.5 px-4 rounded transition-all font-medium ${page === 'at-risk' ? 'bg-indigo-700 text-white shadow' : 'text-indigo-200 hover:bg-indigo-800'}`}>🚨 At-Risk Students</button>
-                    <button onClick={() => { resetForm(); setPage('add-student'); }} className={`w-full text-right py-2.5 px-4 rounded transition-all font-medium ${page === 'add-student' ? 'bg-indigo-700 text-white shadow' : 'text-indigo-200 hover:bg-indigo-800'}`}>➕ Add New Student</button>
-                </nav>
-            </div>
+        function App() {
+            const [page, setPage] = React.useState('dashboard');
+            const [summary, setSummary] = React.useState(null);
+            const [students, setStudents] = React.useState([]);
+            const [loading, setLoading] = React.useState(true);
+        //إذا صار خطأ أثناء الاتصال بالسيرفر,بنخزن رسالة الخطأ هون.
+            const [error, setError] = React.useState(null);
+        
+            const [studentName, setStudentName] = React.useState("");
 
-            {/* 📈 Content */}
-            <div className="flex-1 overflow-y-auto p-8">
-                {page === 'dashboard' && summary && (
-                    <div>
-                        <h2 className="text-3xl font-bold text-gray-800 mb-6">Academy Dashboard 📊</h2>
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <p className="text-gray-400 font-medium">Total Students</p>
-                                <p className="text-3xl font-bold text-indigo-600 mt-2">{summary.total_students}</p>
-                            </div>
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <p className="text-gray-400 font-medium">Average Quiz Score</p>
-                                <p className="text-3xl font-bold text-green-600 mt-2">{summary.average_quiz_score}%</p>
-                            </div>
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <p className="text-gray-400 font-medium">Average Attendance</p>
-                                <p className="text-3xl font-bold text-blue-600 mt-2">{summary.average_attendance}%</p>
-                            </div>
-                            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <p className="text-gray-400 font-medium">High Risk Students</p>
-                                <p className="text-3xl font-bold text-red-600 mt-2">{summary.risk_distribution["High Risk"]}</p>
-                            </div>
-                        </div>
+            const [form, setForm] = React.useState({
+                name: "", age: "", study_hours: "", attendance_rate: "",
+                quiz_scores: "", projects_submitted: "", watched_lessons: "",
+                total_lessons: "", days_inactive: "", support_messages: "",
+                Previous_Scores: "", Exam_Score: "", Attendance: "", Hours_Studied: ""
+            });
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-gradient-to-r from-yellow-50 to-amber-50 p-6 rounded-xl border border-yellow-200 shadow-sm">
-                                <h3 className="font-bold text-lg text-amber-800">👑 the Best Performing Student</h3>
-                                <p className="text-2xl font-black text-amber-900 mt-2">{summary.best_performing_student}</p>
-                            </div>
-                            <div className="bg-gradient-to-r from-red-50 to-orange-50 p-6 rounded-xl border border-red-200 shadow-sm">
-                                <h3 className="font-bold text-lg text-red-800">⚠️ the Student with the Highest Risk</h3>
-                                <p className="text-2xl font-black text-red-900 mt-2">{summary.highest_risk_student}</p>
-                            </div>
-                        </div>
+            const [message, setMessage] = React.useState("");
 
-                        <div className="mt-8 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">🔔 Alerts from the Smart Monitoring System (Inactive Students)</h3>
-                            <div className="space-y-3">
-                                {summary.inactive_alerts.length === 0 ? (
-                                    <p className="text-green-600 font-medium">All students are active and engaged! 🎉</p>
-                                ) : (
-                                    summary.inactive_alerts.map((alert, i) => (
-                                        <div key={i} className="p-3 bg-amber-50 border-r-4 border-amber-500 rounded text-amber-900 font-medium flex justify-between">
-                                            <span>{alert.message}</span>
-                                            <span className="text-sm bg-amber-200 px-2 py-0.5 rounded text-amber-800">Inactive Alert</span>
-                                        </div>
-                                    ))
-                                )}
-                            </div>
-                        </div>
+            const resetForm = () => {
+                setStudentName("");
+                setMessage("");
+                setForm({
+                    name: "", age: "", study_hours: "", attendance_rate: "",
+                    quiz_scores: "", projects_submitted: "", watched_lessons: "",
+                    total_lessons: "", days_inactive: "", support_messages: "",
+                    Previous_Scores: "", Exam_Score: "", Attendance: "", Hours_Studied: ""
+                });
+            };
+
+            React.useEffect(() => {
+                const fetchData = async () => {//حتى إذا صار Error, ما ينهار البرنامج.
+                    try {
+                        setLoading(true);
+                        const resSummary = await axios.get('http://127.0.0.1:8000/students/summary');
+                        const resStudents = await axios.get('http://127.0.0.1:8000/students');
+                        setSummary(resSummary.data);
+                        setStudents(resStudents.data);
+                        setLoading(false);
+                    } catch (err) {
+                        setError("Failed to connect to the backend. Please make sure the FastAPI server is running.");
+                        setLoading(false);
+                    }
+                };
+                fetchData();
+            }, []);
+
+            if (loading) return <div className="flex justify-center items-center h-screen text-xl font-bold text-indigo-600 animate-pulse">Loading Academy Intelligence Platform ⏳</div>;
+            if (error) return <div className="p-6 bg-red-100 text-red-700 m-6 rounded-lg font-bold shadow">❌ Error: {error}</div>;
+
+            return (
+                <div className="flex h-screen bg-gray-100">
+                    {/* 🗂️ Sidebar */}
+                    <div className="w-64 bg-indigo-900 text-white p-6 shadow-lg">
+                        <h1 className="text-xl font-bold mb-8 border-b border-indigo-700 pb-4 text-center text-yellow-400">Academy Intelligence Platform 🧠</h1>
+                        <nav className="space-y-3">
+                            <button onClick={() => setPage('dashboard')} className={`w-full text-right py-2.5 px-4 rounded transition-all font-medium ${page === 'dashboard' ? 'bg-indigo-700 text-white shadow' : 'text-indigo-200 hover:bg-indigo-800'}`}>📊 Dashboard</button>
+                            <button onClick={() => setPage('students')} className={`w-full text-right py-2.5 px-4 rounded transition-all font-medium ${page === 'students' ? 'bg-indigo-700 text-white shadow' : 'text-indigo-200 hover:bg-indigo-800'}`}>👥 Students</button>
+                            <button onClick={() => setPage('at-risk')} className={`w-full text-right py-2.5 px-4 rounded transition-all font-medium ${page === 'at-risk' ? 'bg-indigo-700 text-white shadow' : 'text-indigo-200 hover:bg-indigo-800'}`}>🚨 At-Risk Students</button>
+                            <button onClick={() => { resetForm(); setPage('add-student'); }} className={`w-full text-right py-2.5 px-4 rounded transition-all font-medium ${page === 'add-student' ? 'bg-indigo-700 text-white shadow' : 'text-indigo-200 hover:bg-indigo-800'}`}>➕ Add New Student</button>
+                        </nav>
                     </div>
-                )}
 
-                {page === 'students' && (
-                    <div>
-                        <h2 className="text-3xl font-bold text-gray-800 mb-6">Students Management 👥</h2>
-                        <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
-                            {studentName !== "" && (
-                                <div className="p-3 bg-blue-100 text-blue-700 font-medium border-b border-blue-200">
-                                    Editing Student: <b>{studentName}</b>
-                                </div>
-                            )}
-                            <table className="w-full text-right border-collapse">
-                                <thead>
-                                    <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 font-bold">
-                                        <th className="p-4">Student name</th>
-                                        <th className="p-4">Average Quiz Score</th>
-                                        <th className="p-4">Lesson Completion Percentage</th>
-                                        <th className="p-4">Risk Level</th>
-                                        <th className="p-4">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {students.map((student, i) => (
-                                        <tr key={i} className="border-b border-gray-50 hover:bg-gray-50 transition-all">
-                                            <td className="p-4 font-semibold text-gray-900">{student.name}</td>
-                                            <td className="p-4">{student.average_quiz_score}%</td>
-                                            <td className="p-4">{student.lesson_completion_percentage}%</td>
-                                            <td className="p-4">
-                                                <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                                                    student.risk_level === 'High Risk' ? 'bg-red-100 text-red-700' :
-                                                    student.risk_level === 'Medium Risk' ? 'bg-amber-100 text-amber-700' :
-                                                    'bg-green-100 text-green-700'
-                                                }`}>
-                                                    {student.risk_level}
-                                                </span>
-                                            </td>
-                                            <td className="p-4">
-                                                <button
-                                                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded mr-2"
-                                                    onClick={async () => {
-    try {
-        const res = await axios.get(`http://127.0.0.1:8000/students/${student.name}`);
-        const data = res.data;
-
-        setStudentName(student.name);
-
-        setForm({
-            name: data.name || "",
-            age: data.age ?? "",
-            study_hours: data.study_hours ?? "",
-            attendance_rate: data.attendance_rate ?? "",
-            quiz_scores: Array.isArray(data.quiz_scores) ? data.quiz_scores.join(",") : (data.quiz_scores || ""),
-            projects_submitted: data.projects_submitted ?? "",
-            watched_lessons: data.watched_lessons ?? "",
-            total_lessons: data.total_lessons ?? "",
-            days_inactive: data.days_inactive ?? "",
-            support_messages: data.support_messages ?? "",
-            
-            // 🎯 تأمين قراءة الحقول بأحرف كبيرة وقيم افتراضية
-            Previous_Scores: data.Previous_Scores ?? data.Previous_Score ?? 0,
-            Exam_Score: data.Exam_Score ?? 0,
-            Attendance: data.Attendance ?? data.attendance_rate ?? 0,
-            Hours_Studied: data.Hours_Studied ?? data.study_hours ?? 0
-        });
-
-        setMessage("");
-        setPage("add-student");
-    } catch (err) {
-        alert("Failed to load student details.");
-    }
-}}
-                                                >
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
-                                                    onClick={async () => {
-                                                        if (!confirm(`Delete ${student.name}?`)) return;
-                                                        try {
-                                                            await axios.delete(`http://127.0.0.1:8000/students/${student.name}`);
-                                                            alert("Student deleted successfully!");
-                                                            const resStudents = await axios.get("http://127.0.0.1:8000/students");
-                                                            const resSummary = await axios.get("http://127.0.0.1:8000/students/summary");
-                                                            setStudents(resStudents.data);
-                                                            setSummary(resSummary.data);
-                                                        } catch (err) {
-                                                            alert(err.response?.data?.detail || "Delete failed.");
-                                                        }
-                                                    }}
-                                                >
-                                                    Delete
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                )}
-
-                {page === 'at-risk' && summary && (
-                    <div>
-                        <h2 className="text-3xl font-bold text-gray-800 mb-6">Students Requiring Immediate Attention 🚨</h2>
-                        <div className="grid grid-cols-1 gap-4">
-                            {summary.at_risk_actions.map((item, i) => (
-                                <div key={i} className="bg-white p-6 rounded-xl border-r-8 border-red-500 flex justify-between items-center shadow-sm">
-                                    <div>
-                                        <h3 className="text-lg font-bold text-gray-900">{item.name}</h3>
-                                        <p className="text-gray-500 mt-1 font-medium">Risk Reason: <span className="text-red-600">{item.reason}</span></p>
-                                        <p className="text-gray-700 mt-2 bg-indigo-50 p-2.5 rounded border border-indigo-100 font-medium">💡 Suggested Action: {item.suggested_action}</p>
+                    {/* 📈 Content */}
+                    <div className="flex-1 overflow-y-auto p-8">
+                        {page === 'dashboard' && summary && (
+                            <div>
+                                <h2 className="text-3xl font-bold text-gray-800 mb-6">Academy Dashboard 📊</h2>
+                                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                                        <p className="text-gray-400 font-medium">Total Students</p>
+                                        <p className="text-3xl font-bold text-indigo-600 mt-2">{summary.total_students}</p>
                                     </div>
-                                    <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">{item.risk_level}</span>
+                                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                                        <p className="text-gray-400 font-medium">Average Quiz Score</p>
+                                        <p className="text-3xl font-bold text-green-600 mt-2">{summary.average_quiz_score}%</p>
+                                    </div>
+                                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                                        <p className="text-gray-400 font-medium">Average Attendance</p>
+                                        <p className="text-3xl font-bold text-blue-600 mt-2">{summary.average_attendance}%</p>
+                                    </div>
+                                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                                        <p className="text-gray-400 font-medium">High Risk Students</p>
+                                        <p className="text-3xl font-bold text-red-600 mt-2">{summary.risk_distribution["High Risk"]}</p>
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
+                                {/*CHARTS*/}
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                                    <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 md:col-span-1 flex flex-col justify-center items-center">
+                                        <RiskChart riskData={summary.risk_distribution} />
+                                    </div>
 
-                {page === 'add-student' && (
-                    <div>
-                        <h2 className="text-3xl font-bold mb-6">
-                            {studentName === "" ? "Add New Student ➕" : `Edit Student: ${studentName} ✏️`}
-                        </h2>
-                        <div className="bg-white p-8 rounded-xl shadow max-w-3xl border border-gray-100">
-                            {message && (
-                                <div className="mb-5 bg-green-100 text-green-700 p-3 rounded font-medium">
-                                    {message}
+                                    <div className="md:col-span-2 space-y-6 flex flex-col justify-between">
+                                        <div className="bg-gradient-to-r from-yellow-50 to-amber-50 p-6 rounded-xl border border-yellow-200 shadow-sm">
+                                            <h3 className="font-bold text-lg text-amber-800">👑 Best Performing Student</h3>
+                                            <p className="text-2xl font-black text-amber-900 mt-2">{summary.best_performing_student}</p>
+                                        </div>
+                                        <div className="bg-gradient-to-r from-red-50 to-orange-50 p-6 rounded-xl border border-red-200 shadow-sm">
+                                            <h3 className="font-bold text-lg text-red-800">⚠️ Highest Risk Student</h3>
+                                            <p className="text-2xl font-black text-red-900 mt-2">{summary.highest_risk_student}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            )}
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <input className="border p-2 rounded" placeholder="Student Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} disabled={studentName !== ""} />
-                                <input className="border p-2 rounded" type="number" placeholder="Age" value={form.age} onChange={(e) => setForm({ ...form, age: e.target.value })} />
-                                <input className="border p-2 rounded" type="number" placeholder="Study Hours" value={form.study_hours} onChange={(e) => setForm({ ...form, study_hours: e.target.value })} />
-                                <input className="border p-2 rounded" type="number" placeholder="Attendance Rate" value={form.attendance_rate} onChange={(e) => setForm({ ...form, attendance_rate: e.target.value })} />
-                                <input className="border p-2 rounded" placeholder="Quiz Scores (e.g. 90,88,77)" value={form.quiz_scores} onChange={(e) => setForm({ ...form, quiz_scores: e.target.value })} />
-                                <input className="border p-2 rounded" type="number" placeholder="Projects Submitted" value={form.projects_submitted} onChange={(e) => setForm({ ...form, projects_submitted: e.target.value })} />
-                                <input className="border p-2 rounded" type="number" placeholder="Watched Lessons" value={form.watched_lessons} onChange={(e) => setForm({ ...form, watched_lessons: e.target.value })} />
-                                <input className="border p-2 rounded" type="number" placeholder="Total Lessons" value={form.total_lessons} onChange={(e) => setForm({ ...form, total_lessons: e.target.value })} />
-                                <input className="border p-2 rounded" type="number" placeholder="Days Inactive" value={form.days_inactive} onChange={(e) => setForm({ ...form, days_inactive: e.target.value })} />
-                                <input className="border p-2 rounded" type="number" placeholder="Support Messages" value={form.support_messages} onChange={(e) => setForm({ ...form, support_messages: e.target.value })} />
-                                <input className="border p-2 rounded" type="number" placeholder="Previous Score" value={form.Previous_Scores} onChange={(e) => setForm({ ...form, Previous_Scores: e.target.value })} />
-                                <input className="border p-2 rounded" type="number" placeholder="Exam Score" value={form.Exam_Score} onChange={(e) => setForm({ ...form, Exam_Score: e.target.value })} />
-                                <input className="border p-2 rounded" type="number" placeholder="Attendance" value={form.Attendance} onChange={(e) => setForm({ ...form, Attendance: e.target.value })} />
-                                <input className="border p-2 rounded" type="number" placeholder="Hours Studied" value={form.Hours_Studied} onChange={(e) => setForm({ ...form, Hours_Studied: e.target.value })} />
+                                <div className="mt-8 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                                    <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">🔔 Alerts from the Smart Monitoring System (Inactive Students)</h3>
+                                    <div className="space-y-3">
+                                        {summary.inactive_alerts.length === 0 ? (
+                                            <p className="text-green-600 font-medium">All students are active and engaged! 🎉</p>
+                                        ) : (
+                                            //نستخدمها كثيرًا لعرض القوائم, مثلاً إذا كان عندك 3 تنبيهات، map() تنشئ 3 عناصر <div>، كل واحد يعرض رسالة تنبيه مختلفة.
+                                            //map():هي دالة من JavaScript تستخدم للمرور على كل عنصر داخل Array.
+                                            summary.inactive_alerts.map((alert, i) => (
+                                                <div key={i} className="p-3 bg-amber-50 border-r-4 border-amber-500 rounded text-amber-900 font-medium flex justify-between">
+                                                    <span>{alert.message}</span>
+                                                    <span className="text-sm bg-amber-200 px-2 py-0.5 rounded text-amber-800">Inactive Alert</span>
+                                                </div>
+                                            ))
+                                        )}
+                                    </div>
+                                </div>
                             </div>
+                        )}
 
-                            <button
-                                className="mt-6 bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 font-bold transition-all"
-                                onClick={async () => {
-                                    try {
-                                        const quizArray = typeof form.quiz_scores === "string" 
-                                            ? form.quiz_scores.split(",").map(Number) 
-                                            : form.quiz_scores;
+                        {page === 'students' && (
+                            <div>
+                                <h2 className="text-3xl font-bold text-gray-800 mb-6">Students Management 👥</h2>
+                                <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
+                                    {studentName !== "" && (//إذا اسم الطالب ليس فارغاً.
+                                        <div className="p-3 bg-blue-100 text-blue-700 font-medium border-b border-blue-200">
+                                            Editing Student: <b>{studentName}</b>
+                                        </div>
+                                    )}
+                                    <table className="w-full text-right border-collapse">
+                                        <thead>
+                                            <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 font-bold">
+                                                <th className="p-4">Student name</th>
+                                                <th className="p-4">Average Quiz Score</th>
+                                                <th className="p-4">Lesson Completion Percentage</th>
+                                                <th className="p-4">Risk Level</th>
+                                                <th className="p-4">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {students.map((student, i) => (
+                                                <tr key={i} className="border-b border-gray-50 hover:bg-gray-50 transition-all">
+                                                    <td className="p-4 font-semibold text-gray-900">{student.name}</td>
+                                                    <td className="p-4">{student.average_quiz_score}%</td>
+                                                    <td className="p-4">{student.lesson_completion_percentage}%</td>
+                                                    <td className="p-4">
+                                                        <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                                                            student.risk_level === 'High Risk' ? 'bg-red-100 text-red-700' :
+                                                            student.risk_level === 'Medium Risk' ? 'bg-amber-100 text-amber-700' :
+                                                            'bg-green-100 text-green-700'
+                                                        }`}>
+                                                            {student.risk_level}
+                                                        </span>
+                                                    </td>
+                                                    <td className="p-4">
+                                                        <button
+                                                            className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded mr-2"
+                                                            onClick={async () => {
+                                                                try {
+                                                                    const res = await axios.get(`http://127.0.0.1:8000/students/${student.name}`);
+                                                                    const data = res.data;//يحفظ البيانات القادمة من السيرفر.
 
-                                        const data = {
-                                            ...form,
-                                            age: Number(form.age),
-                                            study_hours: Number(form.study_hours),
-                                            attendance_rate: Number(form.attendance_rate),
-                                            quiz_scores: quizArray,
-                                            projects_submitted: Number(form.projects_submitted),
-                                            watched_lessons: Number(form.watched_lessons),
-                                            total_lessons: Number(form.total_lessons),
-                                            days_inactive: Number(form.days_inactive),
-                                            support_messages: Number(form.support_messages),
-                                            Previous_Scores: Number(form.Previous_Scores),
-                                            Exam_Score: Number(form.Exam_Score),
-                                            Attendance: Number(form.Attendance),
-                                            Hours_Studied: Number(form.Hours_Studied)
-                                        };
+                                                                    setStudentName(student.name);
 
-                                        let res;
-                                        // إذا كنا بوضع التعديل بنستخدم PUT، وإذا طالب جديد بنستخدم POST
-                                        if (studentName !== "") {
-                                            res = await axios.put(`http://127.0.0.1:8000/students/${studentName}`, data);
-                                        } else {
-                                            res = await axios.post("http://127.0.0.1:8000/students", data);
-                                        }
+                                                                    setForm({
+                                                                        name: data.name || "",
+                                                                        age: data.age ?? "",
+                                                                        study_hours: data.study_hours ?? "",
+                                                                        attendance_rate: data.attendance_rate ?? "",
+                                                                        quiz_scores: Array.isArray(data.quiz_scores) ? data.quiz_scores.join(",") : (data.quiz_scores || ""),
+                                                                        projects_submitted: data.projects_submitted ?? "",
+                                                                        watched_lessons: data.watched_lessons ?? "",
+                                                                        total_lessons: data.total_lessons ?? "",
+                                                                        days_inactive: data.days_inactive ?? "",
+                                                                        support_messages: data.support_messages ?? "",
+                                                                        Previous_Scores: data.Previous_Scores ?? data.Previous_Score ?? 0,
+                                                                        Exam_Score: data.Exam_Score ?? 0,
+                                                                        Attendance: data.Attendance ?? data.attendance_rate ?? 0,
+                                                                        Hours_Studied: data.Hours_Studied ?? data.study_hours ?? 0
+                                                                    });
 
-                                        setMessage(res.data.message);
-                                        
-                                        // إعادة تحديث بيانات السيرفر بالرياكت
-                                        const resStudents = await axios.get("http://127.0.0.1:8000/students");
-                                        const resSummary = await axios.get("http://127.0.0.1:8000/students/summary");
-                                        setStudents(resStudents.data);
-                                        setSummary(resSummary.data);
+                                                                    setMessage("");
+                                                                    setPage("add-student");
+                                                                } catch (err) {
+                                                                    alert("Failed to load student details.");
+                                                                }
+                                                            }}
+                                                        >
+                                                            Edit
+                                                        </button>
+                                                        <button
+                                                            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+                                                            onClick={async () => {
+                                                                if (!confirm(`Delete ${student.name}?`)) return;
+                                                                try {
+                                                                    await axios.delete(`http://127.0.0.1:8000/students/${student.name}`);
+                                                                    alert("Student deleted successfully!");
+                                                                    const resStudents = await axios.get("http://127.0.0.1:8000/students");
+                                                                    const resSummary = await axios.get("http://127.0.0.1:8000/students/summary");
+                                                                    setStudents(resStudents.data);
+                                                                    setSummary(resSummary.data);
+                                                                } catch (err) {
+                                                                    alert(err.response?.data?.detail || "Delete failed.");
+                                                                }
+                                                            }}
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        )}
 
-                                    } catch (err) {
-                                        alert(err.response?.data?.detail || "Operation failed.");
-                                    }
-                                }}
-                            >
-                                {studentName === "" ? "Add Student" : "Update Student"}
-                            </button>
-                        </div>
+                        {page === 'at-risk' && summary && (
+                            <div>
+                                <h2 className="text-3xl font-bold text-gray-800 mb-6">Students Requiring Immediate Attention 🚨</h2>
+                                <div className="grid grid-cols-1 gap-4">
+                                    {summary.at_risk_actions.map((item, i) => (
+                                        <div key={i} className="bg-white p-6 rounded-xl border-r-8 border-red-500 flex justify-between items-center shadow-sm">
+                                            <div>
+                                                <h3 className="text-lg font-bold text-gray-900">{item.name}</h3>
+                                                <p className="text-gray-500 mt-1 font-medium">Risk Reason: <span className="text-red-600">{item.reason}</span></p>
+                                                <p className="text-gray-700 mt-2 bg-indigo-50 p-2.5 rounded border border-indigo-100 font-medium">💡 Suggested Action: {item.suggested_action}</p>
+                                            </div>
+                                            <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">{item.risk_level}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {page === 'add-student' && (
+                            <div>
+                                <h2 className="text-3xl font-bold mb-6">
+                                    {studentName === "" ? "Add New Student ➕" : `Edit Student: ${studentName} ✏️`}
+                                </h2>
+                                <div className="bg-white p-8 rounded-xl shadow max-w-3xl border border-gray-100">
+                                    {message && (
+                                        <div className="mb-5 bg-green-100 text-green-700 p-3 rounded font-medium">
+                                            {message}
+                                        </div>
+                                    )}
+
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <input className="border p-2 rounded" placeholder="Student Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} disabled={studentName !== ""} />
+                                        <input className="border p-2 rounded" type="number" placeholder="Age" value={form.age} onChange={(e) => setForm({ ...form, age: e.target.value })} />
+                                        <input className="border p-2 rounded" type="number" placeholder="Study Hours" value={form.study_hours} onChange={(e) => setForm({ ...form, study_hours: e.target.value })} />
+                                        <input className="border p-2 rounded" type="number" placeholder="Attendance Rate" value={form.attendance_rate} onChange={(e) => setForm({ ...form, attendance_rate: e.target.value })} />
+                                        <input className="border p-2 rounded" placeholder="Quiz Scores (e.g. 90,88,77)" value={form.quiz_scores} onChange={(e) => setForm({ ...form, quiz_scores: e.target.value })} />
+                                        <input className="border p-2 rounded" type="number" placeholder="Projects Submitted" value={form.projects_submitted} onChange={(e) => setForm({ ...form, projects_submitted: e.target.value })} />
+                                        <input className="border p-2 rounded" type="number" placeholder="Watched Lessons" value={form.watched_lessons} onChange={(e) => setForm({ ...form, watched_lessons: e.target.value })} />
+                                        <input className="border p-2 rounded" type="number" placeholder="Total Lessons" value={form.total_lessons} onChange={(e) => setForm({ ...form, total_lessons: e.target.value })} />
+                                        <input className="border p-2 rounded" type="number" placeholder="Days Inactive" value={form.days_inactive} onChange={(e) => setForm({ ...form, days_inactive: e.target.value })} />
+                                        <input className="border p-2 rounded" type="number" placeholder="Support Messages" value={form.support_messages} onChange={(e) => setForm({ ...form, support_messages: e.target.value })} />
+                                        <input className="border p-2 rounded" type="number" placeholder="Previous Score" value={form.Previous_Scores} onChange={(e) => setForm({ ...form, Previous_Scores: e.target.value })} />
+                                        <input className="border p-2 rounded" type="number" placeholder="Exam Score" value={form.Exam_Score} onChange={(e) => setForm({ ...form, Exam_Score: e.target.value })} />
+                                        <input className="border p-2 rounded" type="number" placeholder="Attendance" value={form.Attendance} onChange={(e) => setForm({ ...form, Attendance: e.target.value })} />
+                                        <input className="border p-2 rounded" type="number" placeholder="Hours Studied" value={form.Hours_Studied} onChange={(e) => setForm({ ...form, Hours_Studied: e.target.value })} />
+                                    </div>
+
+                                    <button
+                                        className="mt-6 bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 font-bold transition-all"
+                                        onClick={async () => {
+                                            try {
+                                                const quizArray = typeof form.quiz_scores === "string" 
+                                                    ? form.quiz_scores.split(",").map(Number) 
+                                                    : form.quiz_scores;
+
+                                                const data = {
+                                                    ...form,
+                                                    age: Number(form.age),
+                                                    study_hours: Number(form.study_hours),
+                                                    attendance_rate: Number(form.attendance_rate),
+                                                    quiz_scores: quizArray,
+                                                    projects_submitted: Number(form.projects_submitted),
+                                                    watched_lessons: Number(form.watched_lessons),
+                                                    total_lessons: Number(form.total_lessons),
+                                                    days_inactive: Number(form.days_inactive),
+                                                    support_messages: Number(form.support_messages),
+                                                    Previous_Scores: Number(form.Previous_Scores),
+                                                    Exam_Score: Number(form.Exam_Score),
+                                                    Attendance: Number(form.Attendance),
+                                                    Hours_Studied: Number(form.Hours_Studied)
+                                                };
+
+                                                let res;
+                                                if (studentName !== "") {
+                                                    res = await axios.put(`http://127.0.0.1:8000/students/${studentName}`, data);
+                                                } else {
+                                                    res = await axios.post("http://127.0.0.1:8000/students", data);
+                                                }
+
+                                                setMessage(res.data.message);
+                                                
+                                                const resStudents = await axios.get("http://127.0.0.1:8000/students");
+                                                const resSummary = await axios.get("http://127.0.0.1:8000/students/summary");
+                                                setStudents(resStudents.data);
+                                                setSummary(resSummary.data);
+
+                                            } catch (err) {
+                                                alert(err.response?.data?.detail || "Operation failed.");
+                                            }
+                                        }}
+                                    >
+                                        {studentName === "" ? "Add Student" : "Update Student"}
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
-        </div>
-    );
-}
+                </div>
+            );
+        }
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
+        
     </script>
 </body>
 </html>

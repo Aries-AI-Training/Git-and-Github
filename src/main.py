@@ -4,13 +4,14 @@ import sys
 
 current_dir = os.path.dirname(os.path.abspath(__file__))  
 project_root = os.path.dirname(current_dir)              
-#غشان اضمن انو الملفات مسجلة بال path
+
+# Ensure folders are registered in sys.path
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
-#عشاني ما لقيت src اول مرة
+# Register 'src' as a module for compatibility
 if "src" not in sys.modules:
     import types
     src_module = types.ModuleType("src")
@@ -19,14 +20,16 @@ if "src" not in sys.modules:
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
-from api.routes import router as student_router
+from api.routes import router as student_router, root_router
 
 from data_loader import load_students
 from validation import validate_student
 from metrics import average_score, attendance_rate
 from risk import student_risk_level
 from report_generator import save_processed_students, save_summary
+
 logs_dir = os.path.join(project_root, "logs")
 outputs_dir = os.path.join(project_root, "outputs")
 
@@ -38,7 +41,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
         logging.FileHandler(os.path.join(logs_dir, "application.log"), encoding="utf-8"),
-        logging.StreamHandler()
+        logging.StreamHandler()#بيطبع اللوج لايف على الـ Terminal قدامي وانا شغالة.
     ]
 )
 
@@ -48,22 +51,17 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# 🌐 تفعيل الـ CORS عشان الفرونت إند يقدر يشوف الباك إند بدون مشاكل
+# Enable CORS for frontend connection
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # في الإنتاج بنحدد الرابط، بس هسا للسرعة والتطوير بنحط كل المواقع
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 app.include_router(student_router)
-
-@app.get("/")
-def read_root():
-    logging.info("Root endpoint accessed via API.")
-    return {"message": "Welcome to Student Intelligence API. Go to /docs for Swagger!"}
-
+app.include_router(root_router)
 
 def run_cli_mode():
     logging.info("Application started in CLI mode")
@@ -146,16 +144,13 @@ def run_cli_mode():
 
 
 if __name__ == "__main__":
-    try:
-        run_cli_mode()
-    except Exception as error:
-        logging.exception(f"Unexpected error in CLI mode: {error}")
-
-
-@app.get("/dashboard")
-def show_dashboard():
-    import os
-    from fastapi.responses import FileResponse
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    frontend_path = os.path.join(current_dir, "..", "frontend", "index.html")
-    return FileResponse(frontend_path)
+    # If run directly and no specific command arguments are passed, run CLI mode.
+    # Otherwise, it can be run via uvicorn: uvicorn main:app --reload
+    if len(sys.argv) > 1 and sys.argv[1] == "api":
+        import uvicorn
+        uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+    else:
+        try:
+            run_cli_mode()
+        except Exception as error:
+            logging.exception(f"Unexpected error in CLI mode: {error}")
