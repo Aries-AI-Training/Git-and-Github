@@ -1,0 +1,190 @@
+[
+    {
+        "name": "Layan Alkhawaldeh",
+        "age": 21,
+        "study_hours": 15.5,
+        "attendance_rate": 0.95,
+        "quiz_scores": [
+            85.5,
+            92.0,
+            88.0
+        ],
+        "projects_submitted": 3,
+        "watched_lessons": 18,
+        "total_lessons": 20,
+        "days_inactive": 2,
+        "support_messages": 1
+    },
+    {
+        "name": "Cady Alkhawaldeh",
+        "age": 21,
+        "study_hours": 15.5,
+        "attendance_rate": 0.95,
+        "quiz_scores": [
+            85.5,
+            92.0,
+            88.0
+        ],
+        "projects_submitted": 3,
+        "watched_lessons": 18,
+        "total_lessons": 20,
+        "days_inactive": 2,
+        "support_messages": 1,
+        "Previous_Scores": 1.0,
+        "Exam_Score": 0.0,
+        "Attendance": 0.95,
+        "Hours_Studied": 15.5
+    },
+    {
+        "name": "Layan ",
+        "age": 21,
+        "study_hours": 19.5,
+        "attendance_rate": 0.99,
+        "quiz_scores": [
+            98.0,
+            95.5,
+            99.0
+        ],
+        "projects_submitted": 5,
+        "watched_lessons": 20,
+        "total_lessons": 20,
+        "days_inactive": 0,
+        "support_messages": 0,
+        "Previous_Scores": 96.0,
+        "Exam_Score": 97.0,
+        "Attendance": 0.99,
+        "Hours_Studied": 20.0
+    },
+    {
+        "name": "Lugain ",
+        "age": 21,
+        "study_hours": 19.5,
+        "attendance_rate": 0.99,
+        "quiz_scores": [
+            98.0,
+            95.5,
+            99.0
+        ],
+        "projects_submitted": 5,
+        "watched_lessons": 20,
+        "total_lessons": 20,
+        "days_inactive": 0,
+        "support_messages": 1,
+        "Previous_Scores": 96.0,
+        "Exam_Score": 97.0,
+        "Attendance": 0.99,
+        "Hours_Studied": 20.0
+    },
+    {
+        "name": "Nagham",
+        "age": 25,
+        "study_hours": 19.0,
+        "attendance_rate": 46.0,
+        "quiz_scores": [
+            85.0
+        ],
+        "projects_submitted": 10,
+        "watched_lessons": 6,
+        "total_lessons": 12,
+        "days_inactive": 2,
+        "support_messages": 3,
+        "Previous_Scores": 55.0,
+        "Exam_Score": 33.0,
+        "Attendance": 35.0,
+        "Hours_Studied": 8.0
+    },
+    {
+        "name": "Lareen",
+        "age": 19,
+        "study_hours": 100.0,
+        "attendance_rate": 100.0,
+        "quiz_scores": [
+            100.0
+        ],
+        "projects_submitted": 100,
+        "watched_lessons": 100,
+        "total_lessons": 100,
+        "days_inactive": 100,
+        "support_messages": 100,
+        "Previous_Scores": 100.0,
+        "Exam_Score": 100.0,
+        "Attendance": 100.0,
+        "Hours_Studied": 100.0
+    },
+    {
+        "name": "Roa'a",
+        "age": 20,
+        "study_hours": 22.0,
+        "attendance_rate": 23.0,
+        "quiz_scores": [
+            66.0
+        ],
+        "projects_submitted": 77,
+        "watched_lessons": 20,
+        "total_lessons": 23,
+        "days_inactive": 3,
+        "support_messages": 3,
+        "Previous_Scores": 44.0,
+        "Exam_Score": 22.0,
+        "Attendance": 19.0,
+        "Hours_Studied": 88.0
+    },
+    {
+        "name": "Ruba",
+        "age": 25,
+        "study_hours": 10.2,
+        "attendance_rate": 0.43,
+        "quiz_scores": [
+            66.5,
+            34.0,
+            77.0
+        ],
+        "projects_submitted": 3,
+        "watched_lessons": 8,
+        "total_lessons": 28,
+        "days_inactive": 2,
+        "support_messages": 1,
+        "Previous_Scores": 2.3,
+        "Exam_Score": 0.0,
+        "Attendance": 0.5,
+        "Hours_Studied": 5.5
+    },
+    {
+        "name": "Jana",
+        "age": 17,
+        "study_hours": 50.0,
+        "attendance_rate": 50.0,
+        "quiz_scores": [
+            50.0,
+            66.0,
+            56.0
+        ],
+        "projects_submitted": 50,
+        "watched_lessons": 50,
+        "total_lessons": 100,
+        "days_inactive": 4,
+        "support_messages": 1,
+        "Previous_Scores": 50.0,
+        "Exam_Score": 50.0,
+        "Attendance": 50.0,
+        "Hours_Studied": 50.0
+    },
+    {
+        "name": "salwa",
+        "age": 1,
+        "study_hours": 11.0,
+        "attendance_rate": 12.0,
+        "quiz_scores": [
+            12.0
+        ],
+        "projects_submitted": 14,
+        "watched_lessons": 22,
+        "total_lessons": 55,
+        "days_inactive": 3,
+        "support_messages": 1,
+        "Previous_Scores": 22.0,
+        "Exam_Score": 22.0,
+        "Attendance": 11.0,
+        "Hours_Studied": 2.0
+    }
+]
