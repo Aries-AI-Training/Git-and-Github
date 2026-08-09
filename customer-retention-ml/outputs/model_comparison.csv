@@ -1,0 +1,5 @@
+Model,Accuracy,Precision,Recall,F1-score
+Business rule,0.7509,0.5296,0.5508,0.54
+Logistic Regression,0.8055,0.6572,0.5588,0.604
+Decision Tree,0.7984,0.6347,0.5668,0.5989
+Random Forest,0.7779,0.6034,0.4759,0.5321
